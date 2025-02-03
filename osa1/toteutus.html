@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Kurssi</title>
+</head>
+<body>
+    <nav></nav>
+
+    <div id="vastaus">
+        <script>
+            // määritellään kerro-funktio
+            function kerro(data) {
+                let text = '';
+                let opintojakso = data.opintojakso;
+                let toteutus = data.toteutus;
+
+                let h1 = `<h1>${opintojakso.nimi} ${opintojakso.tunnus}</h1>`
+
+                document.getElementById("vastaus").innerHTML = text;
+                
+            }
+
+            fetch('https://olleih.github.io/digitekniikat-json.github.io/osa1/toteutus.json')
+            .then(function (response) {
+                return response.json()
+            })
+            // Käsitellään muunnettu (eli JSON muotoinen) vastaus
+            // funktion kerro() kutsuminen 
+            .then(function (responseJson) {
+            kerro(responseJson);
+            })
+            // catch error
+            .catch(function (error) {
+            document.getElementById("vastaus").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>";
+            })
+
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+    "opintojakso": {
+      "nimi": "Digitekniikat",
+      "tunnus": "DIG4TA021",
+      "opintopisteet": 5
+    },
+    "toteutus": {
+        "aloituspvm": "13.1.2025",
+        "lopetuspvm": "14.3.2025",
+        "kesto": "8 viikkoa",
+        "kuva": "https://www.uusiteknologia.fi/wp-content/uploads/2016/12/boschverkottunutautowww-999x509.jpg",
+        "osallistujat": [
+            {"etunimi": "Aku", "sukunimi": "Ankka"},
+            {"etunimi": "Iines", "sukunimi": "Ankka"},
+            {"etunimi": "Mikki", "sukunimi": "Hiiri"},
+            {"etunimi": "Hessu", "sukunimi": "Hopo"},
+            {"etunimi": "Tupu", "sukunimi": "Ankka"}
+        ]
+    }
+  }
+  
