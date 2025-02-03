@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurssi</title>
+</head>
+<body>
+    <div id="vastaus">
+        <script>
+            fetch('https://run.mocky.io/v3/10c9595d-d8d4-4c0f-a4f2-8fe18fd0804a')
+            .then(function (response) {
+                return response.json()
+            })
+            //Käsitellään muunnettu (eli JSON muotoinen) vastaus
+            // Kutsutaan funktiota kerro()ja välitetään sille json-vastaus
+            .then(function (responseJson) {
+            kerro(responseJson);
+            })
+            // Jos tuli jokin virhe
+            .catch(function (error) {
+            document.getElementById("vastaus").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>";
+            })
+        </script>
+    </div>
+</body>
+</html>
