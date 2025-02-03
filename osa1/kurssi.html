@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Kurssi</title>
 </head>
 <body>
+
     <div id="vastaus">
         <script>
             // määritellään kerro-funktio
@@ -22,9 +24,9 @@
                 let p0 = `<p>${kuvaus} </p>`;
                 let img = `<img src="${kuva}"></img>`;
 
-                let p1 = `<p>${opintojakso.nimi} ${opintojakso.tunnus} ${opintojakso.opintopisteet}</p>`;
-                let p2 = `<h3> Sisällöt: <br/>  </h3><ul><li>${sisalto[0]}</li><li>${sisalto[1]} <li> ${sisalto[2]}</li><li>${sisalto[3]}</li> </ul></br>`;
-                let links = `<h3> Kurssilla käytetyt tekniikat: </h3> <a href="${tekniikat[0].linkki}">${tekniikat[0].aihe} </a> <a href="${tekniikat[1].linkki}">${tekniikat[1].aihe} </a> <br/> <a href="${tekniikat[2].linkki}">${tekniikat[2].aihe} </a> <br/>`
+                let p1 = `<p>${opintojakso.nimi} ${opintojakso.tunnus}, opintopisteet: ${opintojakso.opintopisteet}</p>`;
+                let p2 = `<h3> Sisällöt: </h3><ul><li>${sisalto[0]}</li><li>${sisalto[1]} <li> ${sisalto[2]}</li><li>${sisalto[3]}</li> </ul></br>`;
+                let links = `<h3> Kurssilla käytetyt tekniikat: </h3> <a href="${tekniikat[0].linkki}">${tekniikat[0].aihe} </a> <a href="${tekniikat[1].linkki}">${tekniikat[1].aihe} </a> <a href="${tekniikat[2].linkki}">${tekniikat[2].aihe} </a> <br/>`
 
                 document.getElementById("vastaus").innerHTML = h1 + p0 + img + p1 + p2 + links;
                 
@@ -43,6 +45,7 @@
             .catch(function (error) {
             document.getElementById("vastaus").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>";
             })
+
         </script>
     </div>
 </body>
