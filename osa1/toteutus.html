@@ -7,20 +7,31 @@
     <title>Kurssi</title>
 </head>
 <body>
-    <nav></nav>
-
+    <nav>
+        <ul>
+            <li ><a href="kurssi.html">Kurssi</a></li>
+            <li><a href="toteutus.html">Toteutus</a></li>
+        </ul>
+    </nav>
     <div id="vastaus">
+        <ul id="osallistujat"></ul>
+    </div>
         <script>
             // määritellään kerro-funktio
             function kerro(data) {
-                let text = '';
                 let opintojakso = data.opintojakso;
                 let toteutus = data.toteutus;
-
+                let osallistujat = [];
+                    for (let osallistuja of toteutus.osallistujat) {
+                        osallistujat.push(`<li> ${osallistuja.etunimi}  ${osallistuja.sukunimi}</li>`);
+                    }
+                osallistujat = document.getElementById("osallistujat").innerHTML = osallistujat.join("");
+                let img = `<img src="${toteutus.kuva}" height=300px></img> </br>`;
                 let h1 = `<h1>${opintojakso.nimi} ${opintojakso.tunnus}</h1>`
-
-                document.getElementById("vastaus").innerHTML = text;
-                
+                let p = ` <p>Osallistujat: </p>`
+                let pvm = `<p>Kurssin kesto: ${toteutus.aloituspvm}-${toteutus.lopetuspvm} (${toteutus.kesto})</p>`
+                document.getElementById("vastaus").innerHTML = h1 + img + pvm + p +osallistujat;
+          
             }
 
             fetch('https://olleih.github.io/digitekniikat-json.github.io/osa1/toteutus.json')
@@ -36,8 +47,7 @@
             .catch(function (error) {
             document.getElementById("vastaus").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>";
             })
-
         </script>
-    </div>
+
 </body>
 </html>
