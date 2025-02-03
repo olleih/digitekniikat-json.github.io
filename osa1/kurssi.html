@@ -8,16 +8,38 @@
 <body>
     <div id="vastaus">
         <script>
-            fetch('https://run.mocky.io/v3/10c9595d-d8d4-4c0f-a4f2-8fe18fd0804a')
+            // määritellään kerro-funktio
+            function kerro(data) {
+                let text = '';
+                let otsikko = data.otsikko;
+                let kuvaus = data.kuvaus;
+                let kuva = data.kuva;
+                let opintojakso = data.opintojakso;
+                let sisalto = data.sisalto;
+                let tekniikat = data.tekniikat;
+
+                let h1 = `<h1> ${otsikko} </h1>`;
+                let p0 = `<p>${kuvaus} </p>`;
+                let img = `<img src="${kuva}"></img>`;
+
+                let p1 = `<p>${opintojakso.nimi} ${opintojakso.tunnus} ${opintojakso.opintopisteet}</p>`;
+                let p2 = `<h3> Sisällöt: <br/>  </h3><ul><li>${sisalto[0]}</li><li>${sisalto[1]} <li> ${sisalto[2]}</li><li>${sisalto[3]}</li> </ul></br>`;
+                let links = `<h3> Kurssilla käytetyt tekniikat: </h3> <a href="${tekniikat[0].linkki}">${tekniikat[0].aihe} </a> <a href="${tekniikat[1].linkki}">${tekniikat[1].aihe} </a> <br/> <a href="${tekniikat[2].linkki}">${tekniikat[2].aihe} </a> <br/>`
+
+                document.getElementById("vastaus").innerHTML = h1 + p0 + img + p1 + p2 + links;
+                
+            }
+
+            fetch('https://olleih.github.io/digitekniikat-json.github.io/osa1/jsonkasittely.json')
             .then(function (response) {
                 return response.json()
             })
-            //Käsitellään muunnettu (eli JSON muotoinen) vastaus
-            // Kutsutaan funktiota kerro()ja välitetään sille json-vastaus
+            // Käsitellään muunnettu (eli JSON muotoinen) vastaus
+            // funktion kerro() kutsuminen 
             .then(function (responseJson) {
             kerro(responseJson);
             })
-            // Jos tuli jokin virhe
+            // catch error
             .catch(function (error) {
             document.getElementById("vastaus").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>";
             })
