@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Liikennekamera</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li ><a href="kurssi.html">Osa 1</a></li>
+            <li><a  href="toteutus.html">Osa 2</a></li>
+            <li ><a href="tapahtumat.html">Osa 3</a></li>
+            <li><a class="nav-active" href="liikennekamera.html">Osa 4</a></li>
+        </ul>
+    </nav>
+    <nav class="secondary-nav">
+        <ul>
+            <li ><a class="nav-active" href="liikennekamera.html">Liikennekamera</a></li>
+            <li><a  href="junat.html">Junat</a></li>
+        </ul>
+    </nav>
+
+    <h2>Autolla Tampereelle</h2>
+    <p>Minkälainen keli?</p>
+    <div id="liikennekamera"></div>
+
+    <script>
+        // määritellään funktio kelikuvat
+        const kelikuvat = (data) => {
+            let kuvat = "";
+            for (let i = 0; i < data.presets.length; i++) {
+                kuvat += `<p>${data.presets[i].measuredTime}</p>`;
+                kuvat += `<img src="https://weathercam.digitraffic.fi/${data.presets[i].id}.jpg" alt="kelikuva" width="800px"></img>`
+            }
+
+            document.getElementById("liikennekamera").innerHTML = kuvat;
+        };
+
+
+        // haetaan sääkuvat
+        fetch(`https://tie.digitraffic.fi/api/weathercam/v1/stations/C04507/data`)
+            .then(res => res.json())
+            .then(resData => {
+                //kelikuvat funktion kutsu
+                kelikuvat(resData);
+            })
+            // virhetilanteen hallinta
+            .catch(error => console.error(error));
+
+
+    </script>
+
+</body>
+</html>

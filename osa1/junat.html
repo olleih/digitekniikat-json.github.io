@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Junat</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li ><a href="kurssi.html">Osa 1</a></li>
+            <li><a  href="toteutus.html">Osa 2</a></li>
+            <li ><a href="tapahtumat.html">Osa 3</a></li>
+            <li><a class="nav-active" href="liikennekamera.html">Osa 4</a></li>
+        </ul>
+    </nav>
+    <nav class="secondary-nav">
+        <ul>
+            <li ><a  href="liikennekamera.html">Liikennekamera</a></li>
+            <li><a class="nav-active" href="junat.html">Junat</a></li>
+        </ul>
+    </nav>
+    <h2>Junalla Tampereelle</h2>
+    <p>Junat Helsingistä Tampereelle</p>
+    <div id="junat">
+        <!--Lisätään taulu, johon lähtevien junien tiedot lisätään-->
+        <table id="lahtevatjunat">
+            <tr>
+                <th>Kello</th>
+                <th>Raide</th>
+                <th>Junan numero</th>
+                <th>Perillä</th>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        const junat = (data) => {
+            // määritellään muuttuja table lahtevatjunat tauluksi
+            let table = document.getElementById("lahtevatjunat");
+            // käydään läpi kaikki listan junat
+            for (let i = 0; i < data.length; i++) {
+                //määritellään train muuttuja, joka on aina junalistan i. juna
+                let train = data[i];
+                // katsotaan lähteekö juna tänään
+                const today = new Date().toISOString().split("T")[0];
+                if (train.departureDate === today)
+                // käydään läpi kaikki yhden junan timeTableRows
+                for (let j = 0; j < train.timeTableRows.length; j++) {
+                    // määritellään row-muuttujaksi läpikäytävä rivi
+                    let row = train.timeTableRows[j];
+
+    
+                    // katsotaan onko juna lähtevä juna ja pysähtyykö se Tampereella
+                    if (row.stationShortCode === "TPE" && row.type === "DEPARTURE" ) {
+
+                        // lähtöraide ja junan numero
+                        let track = row.commercialTrack || "N/A"; 
+                        let trainNumber = train.trainNumber;
+
+                        // lisätään tauluun uusi rivi
+                        let newRow = table.insertRow();
+
+                        // varataan taulusta tilaa datan tiedoille
+                        let timeCell = newRow.insertCell(0);
+                        let trackCell = newRow.insertCell(1);
+                        let trainNumberCell = newRow.insertCell(2);
+                        let arrivalCell = newRow.insertCell(3);
+
+    
+                        // Haetaan lähtöaika ja muutetaan se luettavaan muotoon
+                        for (let j = 0; j < train.timeTableRows.length; j++) {
+                            let row = train.timeTableRows[j];
+                            if (row.stationShortCode === "HKI" && row.type === "DEPARTURE") {
+                                departureTime = new Date(row.scheduledTime).toLocaleTimeString("fi-FI", { hour: '2-digit', minute: '2-digit' });
+                                track = row.commercialTrack || "N/A";
+                            }
+                        }
+
+                        // Haetaan saapumisaika ja muutetaan se luettavaan muotoon
+                        for (let j = 0; j < train.timeTableRows.length; j++) {
+                            let row = train.timeTableRows[j];
+                            if (row.stationShortCode === "TPE" && row.type === "ARRIVAL") {
+                                arrivalTime = new Date(row.scheduledTime).toLocaleTimeString("fi-FI", { hour: '2-digit', minute: '2-digit' });
+                            }
+                        }
+                        // Täytetään taulu
+                        timeCell.textContent = departureTime;
+                        trackCell.textContent = track;
+                        trainNumberCell.textContent = train.trainNumber;
+                        arrivalCell.textContent = arrivalTime;
+
+                    }
+                }
+            }
+        };
+
+        // haetaan junatiedot asemalta Helsinki
+        fetch("https://rata.digitraffic.fi/api/v1/live-trains/station/HKI?departing_trains=200&include_nonstopping=false")
+            .then(res => res.json())
+            .then(resData => {
+                junat(resData);
+            })
+            .catch(error => console.error("Error fetching train data:", error));
+    </script>
+    
+</body>
+</html>

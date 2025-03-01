@@ -7,11 +7,19 @@
     <title>Kurssi</title>
 </head>
 <body>
-
+    <nav>
+        <ul>
+            <li ><a class="nav-active" href="kurssi.html">Osa 1</a></li>
+            <li><a  href="toteutus.html">Osa 2</a></li>
+            <li ><a href="tapahtumat.html">Osa 3</a></li>
+            <li><a  href="liikennekamera.html">Osa 4</a></li>
+        </ul>
+    </nav>
     <div id="vastaus">
         <script>
             // määritellään kerro-funktio
             function kerro(data) {
+                // määritellään muuttujiin datan tiedot
                 let text = '';
                 let otsikko = data.otsikko;
                 let kuvaus = data.kuvaus;
@@ -20,6 +28,8 @@
                 let sisalto = data.sisalto;
                 let tekniikat = data.tekniikat;
 
+                // määritellään teksti-muuttujat ja html-sisältö
+                // käytän template-literals ${}, jotta ei tarvita mahdottomasti + lisäyksiä
                 let h1 = `<h1> ${otsikko} </h1>`;
                 let p0 = `<p>${kuvaus} </p>`;
                 let img = `<img src="${kuva}"></img>`;
@@ -28,6 +38,7 @@
                 let p2 = `<h3> Sisällöt: </h3><ul><li>${sisalto[0]}</li><li>${sisalto[1]} <li> ${sisalto[2]}</li><li>${sisalto[3]}</li> </ul></br>`;
                 let links = `<h3> Kurssilla käytetyt tekniikat: </h3> <a href="${tekniikat[0].linkki}">${tekniikat[0].aihe} </a> <a href="${tekniikat[1].linkki}">${tekniikat[1].aihe} </a> <a href="${tekniikat[2].linkki}">${tekniikat[2].aihe} </a> <br/>`
 
+                // lisätään data vastaus-diviin
                 document.getElementById("vastaus").innerHTML = h1 + p0 + img + p1 + p2 + links;
                 
             }

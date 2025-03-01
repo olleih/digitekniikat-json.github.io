@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Sää</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li ><a href="kurssi.html">Osa 1</a></li>
+            <li><a  href="toteutus.html">Osa 2</a></li>
+            <li ><a class="nav-active" href="tapahtumat.html">Osa 3</a></li>
+            <li><a  href="liikennekamera.html">Osa 4</a></li>
+        </ul>
+    </nav>
+    <nav class="secondary-nav">
+        <ul>
+            <li ><a href="tapahtumat.html">Tapahtumat</a></li>
+            <li><a class="nav-active" href="saa.html">Sää</a></li>
+        </ul>
+    </nav>
+    <h2>Sää tiedot</h2>
+    <div id="saatiedot">
+        <div id="helsinki"></div>
+        <div id="tampere"></div>
+    </div>
+
+    <script>
+        // määritellään helsinki-funktio
+        const helsinki = (data) => {
+            let title = `<h3>Sää: Helsinki</h3>`;
+            let list = '';
+            
+            list += `<li>${data.weather[0].main}, ${data.weather[0].description}</li>`;
+            list += `<li>Lämpötila: ${data.main.temp}°C</li>`;
+            list += `<li>Tuulen nopeus: ${data.wind.speed} m/s</li>`;
+            // haetaan sääikoni
+            ikoni = `<img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png"></img>`
+            // esitetään data listassa
+            document.getElementById("helsinki").innerHTML = title + `<ul>${list}</ul>` + ikoni;
+        };
+        // määritellään tampere-funktiio
+        const tampere = (data) => {
+            let title = `<h3>Sää: Tampere</h3>`;
+            let list = '';
+            
+            list += `<li>${data.weather[0].main}, ${data.weather[0].description}</li>`;
+            list += `<li>Lämpötila: ${data.main.temp}°C</li>`;
+            list += `<li>Tuulen nopeus: ${data.wind.speed} m/s</li>`;
+            ikoni = `<img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png"></img>`
+            // esitetään data listassa
+            document.getElementById("tampere").innerHTML = title + `<ul>${list}</ul>` + ikoni;
+        };
+        // haetaan säätiedot helsingistä
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=helsinki&APPID=52384ef382051c1ca5f6ec8f4d82c69b&units=metric`)
+            .then(res => res.json())
+            .then(resData => {
+                helsinki(resData);
+            })
+            .catch(error => console.error(error));
+         // haetaan sää tiedot tampereelta
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=tampere&APPID=52384ef382051c1ca5f6ec8f4d82c69b&units=metric`)
+            .then(res => res.json())
+            .then(resData => {
+                tampere(resData);
+            })
+            .catch(error => console.error(error));
+
+    </script>
+
+</body>
+</html>

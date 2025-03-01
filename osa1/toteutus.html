@@ -9,8 +9,10 @@
 <body>
     <nav>
         <ul>
-            <li ><a href="kurssi.html">Kurssi</a></li>
-            <li><a href="toteutus.html">Toteutus</a></li>
+            <li ><a href="kurssi.html">Osa 1</a></li>
+            <li><a class="nav-active" href="toteutus.html">Osa 2</a></li>
+            <li ><a href="tapahtumat.html">Osa 3</a></li>
+            <li><a  href="liikennekamera.html">Osa 4</a></li>
         </ul>
     </nav>
     <div id="vastaus">
@@ -21,8 +23,11 @@
             function kerro(data) {
                 let opintojakso = data.opintojakso;
                 let toteutus = data.toteutus;
+                // määritellään osallistujat-lista johon lisätään kurssin opiskelijat
                 let osallistujat = [];
+                    // käydään toteutukset osallistujat läpi
                     for (let osallistuja of toteutus.osallistujat) {
+                        // lisätään osallistuja listaan
                         osallistujat.push(`<li> ${osallistuja.etunimi}  ${osallistuja.sukunimi}</li>`);
                     }
                 osallistujat = document.getElementById("osallistujat").innerHTML = osallistujat.join("");
